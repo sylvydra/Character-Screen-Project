@@ -1,0 +1,38 @@
+body {
+    box-sizing: border-box;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 727px;
+    height: 726px;
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.block {
+    width: 240px;
+    height: 240px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.25px solid black
+}
+
+#changedSquare {
+    outline: none;
+}
+
+.character {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    
+}
