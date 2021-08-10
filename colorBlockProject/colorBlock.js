@@ -11,14 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const indigo = document.getElementById("indigo")
     const violet = document.getElementById("violet")
     const clearColor = document.getElementById("clearColor")
- 
+
     var playerOne = document.querySelector(".playerOne")
     const playerTwo = document.querySelector(".playerTwo")
     let charOne = document.getElementById("charOne")
     let charTwo = document.getElementById("charTwo")
     var playButtonOne = document.getElementById("playButtonOne")
     const playButtonTwo = document.getElementById("playButtonTwo")
-    
+
 
     // const blocks = document.getElementsByClassName("block")
     const clickableH2 = document.querySelectorAll("h2")
@@ -69,14 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function playerOneRemove() {
-        if(newImg.src !== "") {
+        if (newImg.src !== "") {
             charOne.removeChild(charImg)
             charImg.src === ""
             charOne.style.border === ""
         }
     }
     function playerTwoRemove() {
-        if(secondImg.src !== "") {
+        if (secondImg.src !== "") {
             charTwo.removeChild(secondImg)
             secondImg.src = ""
             charTwo.style.border = ""
@@ -84,12 +84,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function playerSelect(img) {
-        if(charOne.style.border === "2px dashed red") {
+        if (charOne.style.border === "2px dashed red") {
             secondImg.src = img
             charTwo.appendChild(secondImg)
             secondImg.classList.add("playerSize")
         }
-        else if(charOne.style.border !== "2px dashed red") {
+        else if (charOne.style.border !== "2px dashed red") {
             charImg.src = img
             charOne.appendChild(charImg)
             charImg.classList.add("playerSize")
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
         playerSelect("https://i1.sndcdn.com/artworks-ZOCaszzIwZ6DM81Y-4pOXIQ-t500x500.jpg")
     })
 
- 
+
 
     const cancelButtonOne = document.createElement("div")
 
@@ -177,16 +177,16 @@ document.addEventListener("DOMContentLoaded", () => {
             charOne.style.border = ""
             playButtonOne.innerText = "Confirm"
             timerOff()
-        } 
+        }
     })
 
     playButtonTwo.addEventListener("click", () => {
-        if(playButtonTwo.innerText !== "Cancel") {
+        if (playButtonTwo.innerText !== "Cancel") {
             charTwo.style.border = "2px dashed blue"
             playButtonTwo.innerText = "Cancel"
             timerOn()
         }
-        else if(playButtonTwo.innerText === "Cancel") {
+        else if (playButtonTwo.innerText === "Cancel") {
             charTwo.style.border = ""
             playButtonTwo.innerText = "Confirm"
             timerOff()
@@ -196,42 +196,63 @@ document.addEventListener("DOMContentLoaded", () => {
     clearColor.addEventListener("click", () => {
         removeColor()
         removeClip()
-        unPoke() 
+        unPoke()
         charOne.style.border = ""
         charTwo.style.border = ""
         playButtonOne.innerText = "Confirm"
         playButtonTwo.innerText = "Confirm"
         playerOneRemove()
         playerTwoRemove()
+        timerOff()
     })
 
     const timerSpan = document.getElementById("timerSpan")
 
-    timeLeft = 10
-    
-    function countdown(){
-        setInterval(function() {
-            if(timeLeft <= 0 || charOne.style.border !== "2px dashed red" || charTwo.style.border !== "2px dashed blue") {
-                clearInterval(timeLeft = 0)
-            }
-            timerSpan.innerHTML = timeLeft
-            timeLeft -= 1
-        }, 1000)
-        timeLeft = 10
+    var timeLeft = 10
+    var interval
+
+    function setup() {
+        interval = setInterval(timeIt, 1000)
     }
 
+    function timeIt() {
+        timerSpan.innerHTML = timeLeft;
+        if (timeLeft > 0) {
+            timeLeft -= 1
+        }
+    }
+
+    function clearTime() {
+        clearInterval(interval)
+    }
+
+    // function countdown(){
+    //     setInterval(function() {
+    //         if(timeLeft <= 0 || charOne.style.border !== "2px dashed red" || charTwo.style.border !== "2px dashed blue") {
+    //             clearInterval(timeLeft = 0)
+    //         }
+    //         timerSpan.innerHTML = timeLeft
+    //         timeLeft -= 1
+    //     }, 1000)
+    //     timeLeft = 10
+    // }
+
     function timerOn() {
-        if(charOne.style.border === "2px dashed red" && charTwo.style.border === "2px dashed blue") {
+        if (charOne.style.border === "2px dashed red" && charTwo.style.border === "2px dashed blue") {
             timerSpan.style.visibility = "visible"
+            clearInterval(timeLeft = 0)
             timeLeft = 10
-            countdown()
+            setup()
+            timeIt()
+            // countdown()
         }
     }
 
     function timerOff() {
-        if(charOne.style.border !== "2px dashed red" || charTwo.style.border !== "2px dashed blue") {
+        if (charOne.style.border !== "2px dashed red" || charTwo.style.border !== "2px dashed blue") {
             timerSpan.style.visibility = "hidden"
             timeLeft = 10
+            clearTime(interval, timer = 0)
         }
     }
 
